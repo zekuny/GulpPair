@@ -15,6 +15,6 @@
 <body>
 
 <table class="table table-striped">${table}</table>
-<h2><a href = "index.jsp">Return</a></h2>
+<a href = "index.jsp"><button type="button" class="btn btn-info btn-lg">Return</button></a>
 </body>
 </html>

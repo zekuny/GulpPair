@@ -44,6 +44,7 @@ public class RestaurantServlet extends HttpServlet {
 		String table2 = "";
 		String table3 = "<table class=\"table table-striped\">";
 		
+		
 		// restaurant detail information
 		try {
 			result = DBOperation.getRestaurantDetailsByRID(rid, conn);

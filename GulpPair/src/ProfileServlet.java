@@ -45,7 +45,7 @@ public class ProfileServlet extends HttpServlet {
 		String table = "";
 		String table2 = "";
 		String tableEdit = "";
-		table += "<thead><tr><th>UserID</th><th>Username</th><th>Zipcode</th><th>Email</th><th>Password</th><th>Password</th></tr></thead>";
+		table += "<thead><tr><th>UserID</th><th>Username</th><th>Zipcode</th><th>Email</th><th>Password</th><th>Edit</th></tr></thead>";
 		try {
 			result = DBOperation.getProfile(userID, conn);
 		} catch (SQLException e) {
@@ -55,14 +55,15 @@ public class ProfileServlet extends HttpServlet {
 		try {
 			while(result.next()){
 				
-				table += "<tr><td>"+result.getString("USERID")+"</td><td>"+result.getString("USERNAME")+"</td><td>"+result.getString("ZIPCODE")+"</td><td>"+result.getString("EMAIL")+"</td><td>"+result.getString("password")+"</td></tr>\n";
+				table += "<tr><td>"+result.getString("USERID")+"</td><td>"+result.getString("USERNAME")+"</td><td>"+result.getString("ZIPCODE")+"</td><td>"+result.getString("EMAIL")+"</td><td>"+result.getString("password")+"</td><td><a href = \"EditProfile.jsp?uid=" + userID + "\"><button>Edit</button></a></td></tr>\n";
 				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		tableEdit += "<a href = \"EditProfile.jsp?uid=" + userID + "\">Update Profile</a>";
+		
+		//tableEdit += "<a href = \"EditProfile.jsp?uid=" + userID + "\">Update Profile</a>";
 		
 		
 		
@@ -79,7 +80,7 @@ public class ProfileServlet extends HttpServlet {
 			try {
 				while(result.next()){
 					int rid = Integer.parseInt(result.getString("r_id"));
-					table2 += "<tr><td>"+result.getString("name")+"</td><td>"+result.getString("RATING")+"</td><td>"+result.getString("COMMENTS")+"</td><td><a href = \"EditReview.jsp?rid=" + rid + "\">Edit</a></td></tr>\n";
+					table2 += "<tr><td>"+result.getString("name")+"</td><td>"+result.getString("RATING")+"</td><td>"+result.getString("COMMENTS")+"</td><td><a href = \"EditReview.jsp?rid=" + rid + "\"><button>Edit</button></a></td></tr>\n";
 					
 				}
 			} catch (SQLException e) {
@@ -91,7 +92,7 @@ public class ProfileServlet extends HttpServlet {
 		}
 		request.setAttribute("table", table); 
 		request.setAttribute("table2", table2); 
-		request.setAttribute("tableEdit", tableEdit);
+		//request.setAttribute("tableEdit", tableEdit);
 		getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
 	}
 

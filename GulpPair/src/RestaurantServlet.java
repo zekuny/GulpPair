@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class RestaurantServlet
  */           
 @WebServlet("/RestaurantServlet")
-public class RestaurantServlet extends HttpServlet {
+public class RestaurantServlet extends HttpServlet { 
 	private static final long serialVersionUID = 1L;
 	private static Connection conn = null;
     /**
@@ -42,7 +42,7 @@ public class RestaurantServlet extends HttpServlet {
 		ResultSet result = null;
 		String table = "";
 		String table2 = "";
-		String table3 = "";
+		String table3 = "<table class=\"table table-striped\">";
 		
 		// restaurant detail information
 		try {
@@ -77,6 +77,18 @@ public class RestaurantServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		
+
+			if(session.getAttribute("userID").equals("16")){
+				table2 += "<a href = \"EditRestaurant.jsp?rid=" +rid+ "\"><h1>Update Restaurant(s)</h1></a>";
+				// a link
+			}
+
+		
+		
+		
+		
 		
 		
 		try {
@@ -125,6 +137,7 @@ public class RestaurantServlet extends HttpServlet {
 			e2.printStackTrace();
 		}
 		
+		table3 += "</table><h2><a href = \"FindServlet\">Return</a></h2>";
 		request.setAttribute("table", table); 
 		request.setAttribute("table2", table2); 
 		request.setAttribute("table3", table3); 

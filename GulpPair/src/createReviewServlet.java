@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
+/** 
  * Servlet implementation class createReviewServlet
  */
 @WebServlet("/createReviewServlet")
@@ -54,10 +54,11 @@ public class createReviewServlet extends HttpServlet {
 		
 		
 		System.out.println("-----------------------------");
-		/*String url = "/restaurants.jsp?rid=" + rid;
-		getServletContext().getRequestDispatcher(url).forward(request, response);*/
+		String url = "/RestaurantServlet?rid=" + rid;
+
+		getServletContext().getRequestDispatcher(url).forward(request, response);
 		
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		//getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		
 	}
 

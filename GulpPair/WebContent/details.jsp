@@ -12,12 +12,12 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
-<body>
+<body> 
 
 <table class="table table-striped">${table}</table>
 <br><br>
 <table class="table table-striped">${table2}</table>
 <br><br>
-<table class="table table-striped">${table3}</table>
+${table3}
 </body>
 </html>

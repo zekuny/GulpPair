@@ -12,21 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class updateServlet
  */
-@WebServlet("/LoginServlet") 
-public class LoginServlet extends HttpServlet {
+@WebServlet("/updateReviewServlet")
+public class updateReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Connection conn = null;   
-
-	
+	private static Connection conn = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public updateReviewServlet() {
         super();
         // TODO Auto-generated constructor stub
-		try {
+        try {
 			conn = DBConnection.connectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -38,26 +36,27 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		int rid = 0;
+		System.out.println("I'm here");
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String[] strs = new String[2];
-		String table = "";
-		try {
-			strs = DBOperation.checkUser(email, password, conn);
-			String user = strs[0];
-			String userID = strs[1];
-			session.setAttribute("username", user);
-			session.setAttribute("userID", userID);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(request.getParameter("rating") != null && !request.getParameter("rating").isEmpty() && request.getParameter("comment") != null && !request.getParameter("comment").isEmpty()){
+			String rating = request.getParameter("rating");
+			String comment = request.getParameter("comment");
+			double rating_d = Double.parseDouble(rating);
+			rid = Integer.parseInt(request.getParameter("rid"));
+			HttpSession session = request.getSession();
+			String userID = (String) session.getAttribute("userID");
+			int uid = Integer.parseInt(userID);
+			try {
+				DBOperation.updateReviews(uid, rid, rating_d, comment, conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
-		
-		request.setAttribute("table", table); 
-		//request.setAttribute("extra", "<h1>extra</h1>"); 
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+
+		getServletContext().getRequestDispatcher("/ProfileServlet").forward(request, response);
 	}
 
 	/**

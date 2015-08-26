@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class ProfileServlet
  */
 @WebServlet("/ProfileServlet")
-public class ProfileServlet extends HttpServlet {
+public class ProfileServlet extends HttpServlet { 
 	private static final long serialVersionUID = 1L;
 	private static Connection conn = null;   
     /**
@@ -37,13 +37,15 @@ public class ProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Hello World");
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		String userID = (String) session.getAttribute("userID");
 		ResultSet result = null;
 		String table = "";
 		String table2 = "";
-		table += "<thead><tr><th>UserID</th><th>Username</th><th>Zipcode</th><th>Email</th><th>Password</th></tr></thead>";
+		String tableEdit = "";
+		table += "<thead><tr><th>UserID</th><th>Username</th><th>Zipcode</th><th>Email</th><th>Password</th><th>Password</th></tr></thead>";
 		try {
 			result = DBOperation.getProfile(userID, conn);
 		} catch (SQLException e) {
@@ -60,6 +62,10 @@ public class ProfileServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		tableEdit += "<a href = \"EditProfile.jsp?uid=" + userID + "\">Update Profile</a>";
+		
+		
+		
 		
 		// all reviews by userID
 		try {
@@ -69,11 +75,11 @@ public class ProfileServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		if(result != null){
-			table2 += "<thead><tr><th>Restaurant Name:</th><th>Rating</th><th>Review</th></tr></thead>";
+			table2 += "<thead><tr><th>Restaurant Name:</th><th>Rating</th><th>Review</th><th>Edit</th></tr></thead>";
 			try {
 				while(result.next()){
-					
-					table2 += "<tr><td>"+result.getString("name")+"</td><td>"+result.getString("RATING")+"</td><td>"+result.getString("COMMENTS")+"</td></tr>\n";
+					int rid = Integer.parseInt(result.getString("r_id"));
+					table2 += "<tr><td>"+result.getString("name")+"</td><td>"+result.getString("RATING")+"</td><td>"+result.getString("COMMENTS")+"</td><td><a href = \"EditReview.jsp?rid=" + rid + "\">Edit</a></td></tr>\n";
 					
 				}
 			} catch (SQLException e) {
@@ -85,6 +91,7 @@ public class ProfileServlet extends HttpServlet {
 		}
 		request.setAttribute("table", table); 
 		request.setAttribute("table2", table2); 
+		request.setAttribute("tableEdit", tableEdit);
 		getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
 	}
 
@@ -93,6 +100,7 @@ public class ProfileServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

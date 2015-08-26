@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBOperation {
-	// check if the user is already in the database
+	// check if the user is already in the database 
 	public static String[] checkUser(String email, String password, Connection conn) throws SQLException{
 		String sql = "select username, userid from users where email = '" + email + "' and \"password\" = '" + password + "'";
 		PreparedStatement preStatement = conn.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class DBOperation {
 	
 	public static ResultSet getReviewsByUserID(String userID, Connection conn) throws SQLException{
 		int uid = Integer.parseInt(userID);
-		String sql = "select re.rating, re.comments, rs.\"name\" from reviews re, restaurants rs where re.r_id = rs.r_id and userID = " + uid;
+		String sql = "select rs.r_id, re.rating, re.comments, rs.\"name\" from reviews re, restaurants rs where re.r_id = rs.r_id and userID = " + uid;
 		System.out.println(sql);
 		PreparedStatement preStatement = conn.prepareStatement(sql);
 		ResultSet result = preStatement.executeQuery();
@@ -113,6 +113,34 @@ public class DBOperation {
 		double avg = newAVG / count;
 		sql = "update restaurants set AVG_Rating = " + avg + " where r_id = " + rid;
 		preStatement = conn.prepareStatement(sql);
+		preStatement.executeQuery();
+	}
+	
+	public static void updateRestaurantName(int rid, String r_name, Connection conn) throws SQLException{
+		String sql = "update restaurants set \"name\" = '" + r_name + "' where r_id = " + rid;
+		System.out.println(sql);
+		PreparedStatement preStatement = conn.prepareStatement(sql);
+		preStatement.executeQuery();
+	}
+	
+	public static void updateRestaurantAddress(int rid, String address, Connection conn) throws SQLException{
+		String sql = "update restaurants set address = '" + address + "' where r_id = " + rid;
+		System.out.println(sql);
+		PreparedStatement preStatement = conn.prepareStatement(sql);
+		preStatement.executeQuery();
+	}
+	
+	public static void updateUserUsername(int uid, String username, Connection conn) throws SQLException{
+		String sql = "update users set username = '" + username + "' where userID = " + uid;
+		System.out.println(sql);
+		PreparedStatement preStatement = conn.prepareStatement(sql);
+		preStatement.executeQuery();
+	}
+	
+	public static void updateReviews(int uid, int rid, double rating, String review, Connection conn) throws SQLException{
+		String sql = "update reviews set rating = " + rating + ", comments = '" + review + "' where userID = " + uid + " and r_id = " + rid;
+		System.out.println(sql);
+		PreparedStatement preStatement = conn.prepareStatement(sql);
 		preStatement.executeQuery();
 	}
 	

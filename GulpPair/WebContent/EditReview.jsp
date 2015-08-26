@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>grades</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
@@ -29,57 +29,45 @@
 </head>
 <body>
 <%
-String rid = request.getParameter("rid");
+String rid = request.getParameter("rid"); 
 %>
 	<div class="container">
 
 		<div class="container">
 			<div class="jumbotron other-color">
 				<center>
-					<h1>Create Account</h1>
+					<h1>Update Restaurant</h1>
 				</center>
 			</div>
 		</div>
 
-		<form class="form-horizontal" role="form" action="createReviewServlet"
+		<form class="form-horizontal" action="updateReviewServlet"
 			method="post">
 			<div class="form-group">
-				<label class="control-label col-sm-5" >Rating
-					:</label>
+				<label class="control-label col-sm-5" >Rating: </label>
 				<div class="col-sm-5">
 					<input type="text" class="form-control" id="rating"
-						name="rating">
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<label class="control-label col-sm-5" for="class">Comments
-					:</label>
-				<div class="col-sm-5">
-					<input type="text" class="form-control" id="comments" name="comments">
-					<input type="hidden" class="form-control" id="rid" name="rid" value="<%=rid%>">
+						name="rating" placeholder="Out of 5">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-sm-5" for="class">Date
-					:</label>
+				<label class="control-label col-sm-5" for="class">Comments:</label>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" id="reviewdate" name="reviewdate">
+					<input type="text" class="form-control" id="comment" name="comment">
 					<input type="hidden" class="form-control" id="rid" name="rid" value="<%=rid%>">
 				</div>
 			</div>
-
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-5">
 					<center>
 						<button type="submit" class="btn btn-primary btn-lg btn-block"
-							value="addView">Create Account</button>
+							value="addstudent">Update</button>
 					</center>
 				</div>
 			</div>
 		</form>
+		
 </div>	
 </body>	
 	

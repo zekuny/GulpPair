@@ -16,7 +16,7 @@
 <style>
 .other-color {
 	background: lightskyblue
-}
+} 
 
 .jumbotron h1 {
 	color: slategray
@@ -29,6 +29,7 @@
 </head>
 <body>
 <table class="table table-striped">${table}</table>
+${tableEdit}
 <br><br>
 <table class="table table-striped">${table2}</table>
 <br>

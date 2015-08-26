@@ -12,21 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class updateServlet
  */
-@WebServlet("/LoginServlet") 
-public class LoginServlet extends HttpServlet {
+@WebServlet("/updateProfileServlet")
+public class updateProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Connection conn = null;   
-
-	
+	private static Connection conn = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public updateProfileServlet() {
         super();
         // TODO Auto-generated constructor stub
-		try {
+        try {
 			conn = DBConnection.connectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -39,25 +37,21 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		String uid = (String) session.getAttribute("userID");
+		int u_id = Integer.parseInt(uid);
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String[] strs = new String[2];
-		String table = "";
-		try {
-			strs = DBOperation.checkUser(email, password, conn);
-			String user = strs[0];
-			String userID = strs[1];
-			session.setAttribute("username", user);
-			session.setAttribute("userID", userID);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(request.getParameter("u_name") != null && !request.getParameter("u_name").isEmpty()){
+			String u_name = request.getParameter("u_name");
+			try {
+				DBOperation.updateUserUsername(u_id, u_name, conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
-		request.setAttribute("table", table); 
-		//request.setAttribute("extra", "<h1>extra</h1>"); 
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/ProfileServlet").forward(request, response);
 	}
 
 	/**

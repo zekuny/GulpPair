@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
+<% 
 if(session.getAttribute("username") == null){%>
 
 
@@ -30,8 +30,7 @@ if(session.getAttribute("username") == null){%>
 						<div class="form-group">
 							<label class="control-label col-sm-5">Email: </label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="email"
-									name="email" placeholder="Enter email">
+								<input type="text" class="form-control" id="email" name="email" placeholder="Enter email">
 							</div>
 						</div>
 						<div class="form-group">

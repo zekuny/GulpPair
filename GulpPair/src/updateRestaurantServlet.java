@@ -9,24 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class updateServlet
  */
-@WebServlet("/LoginServlet") 
-public class LoginServlet extends HttpServlet {
+@WebServlet("/updateRestaurantServlet")
+public class updateRestaurantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Connection conn = null;   
-
-	
+	private static Connection conn = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public updateRestaurantServlet() {
         super();
         // TODO Auto-generated constructor stub
-		try {
+        try {
 			conn = DBConnection.connectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -38,26 +35,32 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		int rid = 0;
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String[] strs = new String[2];
-		String table = "";
-		try {
-			strs = DBOperation.checkUser(email, password, conn);
-			String user = strs[0];
-			String userID = strs[1];
-			session.setAttribute("username", user);
-			session.setAttribute("userID", userID);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(request.getParameter("r_name") != null && !request.getParameter("r_name").isEmpty()){
+			String r_name = request.getParameter("r_name");
+			rid = Integer.parseInt(request.getParameter("rid"));
+			try {
+				DBOperation.updateRestaurantName(rid, r_name, conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		if(request.getParameter("address") != null && !request.getParameter("address").isEmpty()){
+			String address = request.getParameter("address");
+			rid = Integer.parseInt(request.getParameter("rid"));
+			try {
+				DBOperation.updateRestaurantAddress(rid, address, conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
-		request.setAttribute("table", table); 
-		//request.setAttribute("extra", "<h1>extra</h1>"); 
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		String url = "/RestaurantServlet?rid=" + rid;
+		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 
 	/**

@@ -10,11 +10,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<title>Insert title here</title> 
 </head>
 <body>
 
 <table class="table table-striped">${table}</table>
-
+<h2><a href = "index.jsp">Return</a></h2>
 </body>
 </html>

@@ -63,7 +63,7 @@ public class DBOperation {
 	}
 	
 	public static ResultSet getRestaurantReviewsByRID(int rid, Connection conn) throws SQLException{
-		String sql = "select rating, comments, reviewdate, username from reviews" + 
+		String sql = "select reviewid, rating, comments, reviewdate, username from reviews" + 
 						" left outer join users" + 
 						" on users.userID = reviews.userID" +
 						" where r_id = " + rid;
@@ -144,5 +144,19 @@ public class DBOperation {
 		preStatement.executeQuery();
 	}
 	
+	public static ResultSet getAllCommentsByREID(int reid, Connection conn) throws SQLException{
+		String sql = "select * from reviewComments where reviewID = " + reid;
+		System.out.println(sql);
+		PreparedStatement preStatement = conn.prepareStatement(sql);
+		ResultSet result = preStatement.executeQuery();
+		return result;
+	}
+	
+	public static void addComments(int reid, String comments, Connection conn) throws SQLException{
+		String sql = "insert into reviewComments values (" + reid + ", '" + comments + "')";
+		System.out.println(sql);
+		PreparedStatement preStatement = conn.prepareStatement(sql);
+		preStatement.executeQuery();
+	}
 	
 }

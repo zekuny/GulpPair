@@ -127,10 +127,11 @@ public class RestaurantServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		try {
-			table3 += "<thead><tr><th>User</th><th>Rating</th><th>Comments</th><th>Date</th></tr></thead>";
+			table3 += "<thead><tr><th>User</th><th>Rating</th><th>Comments</th><th>Date</th><th>Comment on this review</th></tr></thead>";
 			while(result.next()){
+				int reid = Integer.parseInt(result.getString("reviewid"));
 				table3 += "<tr><td>"+ result.getString("username")+"</td><td>"+ result.getString("rating")+"</td><td>"+result.getString("comments")+"</td><td>" + result.getString("reviewdate") +
-					    "</td></tr>\n";
+					    "<td><a href = \"commentReviewServlet?reid=" + reid + "&rid=" + rid + "\">Comment</a></td></td></tr>\n";
 			}
 		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
